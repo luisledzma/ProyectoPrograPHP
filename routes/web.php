@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PrincipalController@getIndex'
+)->name('pr.index');
+
+
+Route::get('registro',
+[
+  'uses'=>'PrincipalController@getRegistro',
+  'as'=>'pr.registro'
+]);
