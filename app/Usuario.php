@@ -4,15 +4,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class Usuario extends Model{
 
-  protected $fillable=['nombre','correo','direccion','telefono'];
+  protected $fillable=['nombre','contrasenna','correo','direccion','telefono'];
 
   public function encCanjes() {
-    return $this->hasMany('App\EncCanje');
+    return $this->hasMany('App\Enccanje');
   }
 
   public function tipoUsuario() {
     // el 2 paramtro  de la llave foranea de la tabla de afuera    return $this->belongsTo('App\Videojuego','videojuego_id');
-    return $this->belongsTo('App\TipoUsuario');
+    return $this->belongsTo('App\Tipousuario');
   }
 
   public function Centros() {

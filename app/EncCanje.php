@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EncCanje extends Model
+class Enccanje extends Model
 {
   protected $fillable=['fecha','total'];
     //
