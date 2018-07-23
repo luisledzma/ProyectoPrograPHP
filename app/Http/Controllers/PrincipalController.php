@@ -11,8 +11,5 @@ class PrincipalController extends Controller
     return view('PaginaPrincipal.index');
   }
 
-  public function getRegistro(){
-    return view('PaginaPrincipal.registro');
-  }
 
 }

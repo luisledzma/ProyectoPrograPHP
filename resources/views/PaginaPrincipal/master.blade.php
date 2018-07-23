@@ -22,25 +22,71 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="#">Item1</a></li>
           <li><a href="#">Item2</a></li>
+          <li>
+            <a class='dropdown-trigger' href='#' data-target='dropdown1'>Mantenimientos</a>
+            <ul id='dropdown1' class='dropdown-content'>
+              <li><a href="#!">one</a></li>
+              <li><a href="#!">two</a></li>
+              <li class="divider" tabindex="-1"></li>
+              <li><a href="#!">three</a></li>
+              <li><a href="#!">four</a></li>
+              <li><a href="#!">five</a></li>
+            </ul>
+          </li>
+          @guest
+          <li><a href="{{ route('register') }}">Registrarse</a></li>
           <li><a id="login" href="#">Iniciar Sesión</a></li>
+          @else
+          <a class='dropdown-trigger btn' href='#' data-target='myUser'>{{ Auth::user()->name }}</a>
+          <ul id='myUser' class='dropdown-content'>
+            <li><a href="#!">Mi Perfil</a></li>
+            <li class="divider" tabindex="-1"></li>
+            <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Cerrar Sesión') }}</a></li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+          </ul>
+          @endguest
         </ul>
       </div>
     </nav>
     <div id="login-form" class="webui-popover-content">
-        <form action="" method="post">
+      <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+          @csrf
               <div class="input-field col s12">
                 <i class="material-icons prefix">person</i>
-                <input id="username" type="text" class="validate">
-                <label for="username">Usuario</label>
+                <input id="email2" type="email" class="validate{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required >
+                <label for="email2" >{{ __('Correo Electrónico') }}</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">vpn_key</i>
-                <input id="password" type="password" class="validate">
-                <label for="password">Contraseña</label>
+                <input id="password2" type="password" class="validate{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                <label for="password2">{{ __('Contraseña') }}</label>
               </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Ingresar
+              <div class="input-field col s6">
+                <div class="col s12">
+                    @if ($errors->has('email') || $errors->has('password'))
+                    <div class="card-panel red-text text-darken-2">{{ $errors->first('email') }}{{ $errors->first('password') }}</div>
+                    @endif
+                </div>
+              </div>
+              <div class="input-field col s12">
+                <p>
+                  <label>
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}/>
+                    <span> {{ __('Recordar') }}</span>
+                  </label>
+                </p>
+              </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">{{ __('Ingresar') }}
                 <i class="material-icons right">send</i>
             </button>
+            <div class="input-field col s12">
+              <a class="badge" href="{{ route('password.request') }}">
+                  {{ __('Olvidaste la Contraseña?') }}
+              </a>
+            </div>
+
         </form>
     </div>
 
@@ -80,7 +126,7 @@
       $('.modal').modal();
     });
     $('#login').webuiPopover({url:'#login-form'});
-
+     $('.dropdown-trigger').dropdown();
   </script>
 
 

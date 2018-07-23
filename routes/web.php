@@ -20,3 +20,7 @@ Route::get('registro',
   'uses'=>'PrincipalController@getRegistro',
   'as'=>'pr.registro'
 ]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

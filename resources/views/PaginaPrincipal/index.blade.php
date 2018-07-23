@@ -7,12 +7,16 @@
           <div class="container">
           <br><br>
           <h1 class="header center teal-text text-lighten-2">Ecologia</h1>
+          @guest
             <div class="row center">
               <h5 class="header col s12 light">Registrate para obtener los beneficios de las eco-monedas.</h5>
             </div>
             <div class="row center">
-              <a href="{{route('pr.registro')}}" id="download-button" class="btn-large modal-trigger pulse waves-effect waves-light teal lighten-1">Registrarse</a>
+              <a href="{{ route('register') }}" id="download-button" class="btn-large modal-trigger pulse waves-effect waves-light teal lighten-1">Registrarse</a>
             </div>
+            @else
+              <h2 class="header center teal-text text-lighten-2">Bienvenido</h1>
+            @endguest
             <br><br>
             </div>
           </div>

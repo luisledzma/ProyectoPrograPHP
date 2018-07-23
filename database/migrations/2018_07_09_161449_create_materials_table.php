@@ -21,7 +21,7 @@ class CreateMaterialsTable extends Migration
             $table->decimal('precio');
             $table->string('color',25);
             $table->integer('tipomaterial_id')->unsigned();
-            $table->foreign('tipomaterial_id')->references('id')->on('tipomaterials')->onDete('cascade');
+            $table->foreign('tipomaterial_id')->references('id')->on('tipomaterials')->onDelete('cascade');
         });
     }
 

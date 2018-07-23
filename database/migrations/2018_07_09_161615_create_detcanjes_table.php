@@ -19,9 +19,9 @@ class CreateDetcanjesTable extends Migration
             $table->integer('cantidad');
             $table->decimal('subtotal');
             $table->integer('enccanje_id')->unsigned();
-            $table->foreign('enccanje_id')->references('id')->on('enccanjes')->onDete('cascade');
+            $table->foreign('enccanje_id')->references('id')->on('enccanjes')->onDelete('cascade');
             $table->integer('material_id')->unsigned();
-            $table->foreign('material_id')->references('id')->on('materials')->onDete('cascade');
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
         });
     }
 

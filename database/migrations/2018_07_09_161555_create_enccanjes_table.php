@@ -19,7 +19,7 @@ class CreateEnccanjesTable extends Migration
             $table->date('fecha');
             $table->decimal('total');
             $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDete('cascade');
+            $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

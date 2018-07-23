@@ -20,7 +20,7 @@ class CreateUsuarioCentroTable extends Migration
             $table->integer('centro_id')->unsigned();
             $table->foreign('usuario_id')->
             references('id')->
-            on('usuarios')->onDelete('cascade');
+            on('users')->onDelete('cascade');
             $table->foreign('centro_id')->
             references('id')->
             on('centros')->onDelete('cascade');
