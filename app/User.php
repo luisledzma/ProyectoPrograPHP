@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','adress','phone','tipousuario_id'
+        'name', 'email', 'password','adress','phone','tipousuario_id','estado'
     ];
 
     /**
@@ -31,14 +31,22 @@ class User extends Authenticatable
       return $this->hasMany('App\Enccanje');
     }
 
+
+
+    public function centros() {
+      return $this->hasMany('App\Centro');
+    }
+
     public function tipoUsuario() {
       // el 2 paramtro  de la llave foranea de la tabla de afuera    return $this->belongsTo('App\Videojuego','videojuego_id');
       return $this->belongsTo('App\Tipousuario');
     }
 
-    public function Centros() {
-      return $this->belongsToMany('App\Centro',
-      'usuario_centro','usuario_id','centro_id')->withTimestamps();
+    public function tieneAcceso(array $permisos){
+        if($this->tipoUsuario->tieneAcceso($permisos)){
+          return true;
+        }
+      return false;
     }
 
 }

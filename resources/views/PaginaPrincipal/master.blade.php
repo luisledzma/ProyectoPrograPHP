@@ -25,7 +25,7 @@
           <li>
             <a class='dropdown-trigger' href='#' data-target='dropdown1'>Mantenimientos</a>
             <ul id='dropdown1' class='dropdown-content'>
-              <li><a href="#!">one</a></li>
+              <li><a href="{{ route('centro.index')}}">Centro de acopio</a></li>
               <li><a href="#!">two</a></li>
               <li class="divider" tabindex="-1"></li>
               <li><a href="#!">three</a></li>

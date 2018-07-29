@@ -15,10 +15,16 @@ class CreateCentrosTable extends Migration
     {
         Schema::create('centros', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('nombre',100);
             $table->string('provincia',15);
             $table->text('direccionExacta');
+            $table->boolean('estado')->default(true);
+            $table->unsignedInteger('user_id');
+            //--Asociarlo con un usuario
+            $table->timestamps();
+            $table->foreign('user_id')->
+            references('id')->
+            on('users');
         });
     }
 
@@ -29,6 +35,10 @@ class CreateCentrosTable extends Migration
      */
     public function down()
     {
+      Schema::table('centros', function (Blueprint $table) {
+        $table->dropForeign('centros_user_id_foreign');
+        $table->dropColum('user_id');
+      });
         Schema::dropIfExists('centros');
     }
 }

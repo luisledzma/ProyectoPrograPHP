@@ -21,6 +21,28 @@ Route::get('registro',
   'as'=>'pr.registro'
 ]);
 
+Route::group(['prefix'=>'centro','middleware'=>'auth'], function(){
+  Route::get('', [
+      'uses'=>'CentroController@getCentroIndex',
+      'as'=>'centro.index'
+    ]
+  );
+  Route::get('create',
+    [
+      'uses'=>'CentroController@getCentroCreate',
+      'as'=>'centro.create',
+
+    ]
+  );
+  Route::post('create',
+    [
+      'uses'=>'CentroController@ctCentroCreate',
+      'as'=>'centro.create',
+      
+    ]
+  );
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

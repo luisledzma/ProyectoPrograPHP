@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->text('adress');
             $table->string('phone',15);
+            $table->boolean('estado')->default(true);
             $table->rememberToken();
             $table->integer('tipousuario_id')->unsigned();
             $table->foreign('tipousuario_id')->references('id')->on('tipousuarios')->onDelete('cascade');

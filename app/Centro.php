@@ -4,14 +4,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class Centro extends Model{
 
-  protected $fillable=['nombre','provincia','direccionExacta'];
+  protected $fillable=['nombre','provincia','direccionExacta','user_id','estado'];
 
   public function encCanjes() {
     return $this->hasMany('App\Enccanje');
   }
 
-  public function Usuarios() {
-    return $this->belongsToMany('App\Usuario',
-    'usuario_centro','centro_id','usuario_id')->withTimestamps();
+  public function user() {
+    return $this->belongsTo('App\User');
   }
 }

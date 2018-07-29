@@ -23,8 +23,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
-
-        //
+      $this->registerPolicies();
+      Gate::define('create-ct',function($user){//el parámetro user va a retornar los datos del usuario que esta autentificado.
+        return $user->tieneAcceso(['create-ct']);
+      });
     }
 }
