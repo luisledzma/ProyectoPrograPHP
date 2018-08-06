@@ -20,6 +20,7 @@ class CreateEnccanjesTable extends Migration
             $table->decimal('total');
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

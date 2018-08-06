@@ -6,21 +6,36 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Centro;
 use App\User;
+use App\TipoUsuario;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CentroController extends Controller
 {
     //
     public function getCentroIndex(){// ya no necesito la sesión en este caso getCentroIndex(Store $session)
-      $centros=Centro::orderBy('nombre','asc');
+      $centros=Centro::withTrashed()->orderBy('nombre','asc');
 
       //if(Gate::denies('see-all-vj')){
         //$videojuegos=$videojuegos->where('user_id',auth()->user()->id);
       //}
-      $centros=$centros->paginate(3);
+      $centros=$centros->paginate(5);
       return view('centro.index',['centros'=>$centros]);
     }
+
+    public function getCentroEdit($id){
+      $centro = Centro::withTrashed()->where('id',$id)->first();
+      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      $admins = DB::table('users')->join('tipo_user', 'users.id', '=', 'tipo_user.user_id')
+      ->where('tipo_user.tipoUsuario_id',2)->orderby('name')->pluck('name','id');
+      return view('centro.edit',['centro'=>$centro,'admins'=>$admins]);
+    }
+
+
     public function getCentroCreate(){
-      $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      $admins = DB::table('users')->join('tipo_user', 'users.id', '=', 'tipo_user.user_id')
+      ->where('tipo_user.tipoUsuario_id',2)->orderby('name')->pluck('name','id');
       return view('centro.create',compact('admins'));
     }
     public function ctCentroCreate(Request $request)
@@ -48,6 +63,29 @@ class CentroController extends Controller
         $request->input('fechaEstrenoInicial'));*/
         return redirect()
         ->route('centro.index')
-        ->with('info', 'Centro: ' . $request->input('name').' creado');
+        ->with('info', 'creado');
     }
+
+    public function CentroUpdate(Request $request)
+    {
+      $this->validate($request, [
+          'name' => 'required|min:5',
+          'province' => 'required|min:6',
+          'direccionExacta' => 'required',
+          'admin'=>'required'
+      ]);
+
+      $centro = Centro::withTrashed()->find($request->input('id'));
+      $centro->nombre=$request->input('name');
+      $centro->provincia=$request->input('province');
+      $centro->direccionExacta=$request->input('direccionExacta');
+      $centro->user_id=$request->input('admin');
+      $centro->deleted_at = $request->input('estado')==0?Carbon::now():null;
+      $centro->save();
+
+        return redirect()
+        ->route('centro.index')
+        ->with('info', 'editado');
+    }
+
 }

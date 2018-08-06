@@ -15,10 +15,12 @@ class CreateCuponsTable extends Migration
     {
         Schema::create('cupons', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('nombre',100);
             $table->text('descripcion');
             $table->decimal('cantEcoNecesarias');
+            $table->string('imagen',100);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

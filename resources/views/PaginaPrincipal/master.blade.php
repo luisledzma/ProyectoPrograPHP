@@ -19,27 +19,32 @@
     <nav>
       <div class="nav-wrapper">
         <a href="{{route('pr.index')}}" class="brand-logo"><img style="width:55px;height:55px;" src="{{ URL::to('img/logo.png') }}"/></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="#">Item1</a></li>
           <li><a href="#">Item2</a></li>
+          @guest
+          @else
           <li>
             <a class='dropdown-trigger' href='#' data-target='dropdown1'>Mantenimientos</a>
             <ul id='dropdown1' class='dropdown-content'>
-              <li><a href="{{ route('centro.index')}}">Centro de acopio</a></li>
-              <li><a href="#!">two</a></li>
+              <li><a href="{{ route('centro.index')}}">Centro de Acopio</a></li>
+              <li><a href="{{ route('material.index')}}">Materiales</a></li>
               <li class="divider" tabindex="-1"></li>
-              <li><a href="#!">three</a></li>
-              <li><a href="#!">four</a></li>
+              <li><a href="{{ route('usuario.index')}}">Usuarios</a></li>
+              <li><a href="{{ route('cupon.index')}}">Cupones</a></li>
               <li><a href="#!">five</a></li>
             </ul>
           </li>
+          @endguest
           @guest
           <li><a href="{{ route('register') }}">Registrarse</a></li>
           <li><a id="login" href="#">Iniciar Sesión</a></li>
           @else
           <a class='dropdown-trigger btn' href='#' data-target='myUser'>{{ Auth::user()->name }}</a>
           <ul id='myUser' class='dropdown-content'>
-            <li><a href="#!">Mi Perfil</a></li>
+            <li><a href="{{ route('register') }}">Mi Perfil</a></li>
+            <li><a href="{{ route('usuario.password')}}">Cambiar Contraseña</a></li>
             <li class="divider" tabindex="-1"></li>
             <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Cerrar Sesión') }}</a></li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -50,27 +55,33 @@
         </ul>
       </div>
     </nav>
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">Javascript</a></li>
+      <li><a href="mobile.html">Mobile</a></li>
+  </ul>
     <div id="login-form" class="webui-popover-content">
       <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
           @csrf
-              <div class="input-field col s12">
+              <div class="input-field col s12 m12 l12 xl12">
                 <i class="material-icons prefix">person</i>
                 <input id="email2" type="email" class="validate{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required >
                 <label for="email2" >{{ __('Correo Electrónico') }}</label>
               </div>
-              <div class="input-field col s12">
+              <div class="input-field col s12 m12 l12 xl12">
                 <i class="material-icons prefix">vpn_key</i>
                 <input id="password2" type="password" class="validate{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                 <label for="password2">{{ __('Contraseña') }}</label>
               </div>
-              <div class="input-field col s6">
-                <div class="col s12">
+              <div class="input-field col s12 m12 l6 xl6">
+                <div class="col s12 m12 l12 xl12">
                     @if ($errors->has('email') || $errors->has('password'))
                     <div class="card-panel red-text text-darken-2">{{ $errors->first('email') }}{{ $errors->first('password') }}</div>
                     @endif
                 </div>
               </div>
-              <div class="input-field col s12">
+              <div class="input-field col s12 m12 l12 xl12">
                 <p>
                   <label>
                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}/>
@@ -81,7 +92,7 @@
             <button class="btn waves-effect waves-light" type="submit" name="action">{{ __('Ingresar') }}
                 <i class="material-icons right">send</i>
             </button>
-            <div class="input-field col s12">
+            <div class="input-field col s12 m12 l12 xl12">
               <a class="badge" href="{{ route('password.request') }}">
                   {{ __('Olvidaste la Contraseña?') }}
               </a>
@@ -127,6 +138,9 @@
     });
     $('#login').webuiPopover({url:'#login-form'});
      $('.dropdown-trigger').dropdown();
+     $(document).ready(function(){
+      $('.sidenav').sidenav();
+    });
   </script>
 
 

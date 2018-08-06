@@ -14,6 +14,7 @@ class TipousuarioTableSeeder extends Seeder
         //
         $tusuario= new \App\tipousuario();
         $tusuario->nombre = 'Administrador';
+        $tusuario->permissions = json_encode(['create-ct' => true]);
         $tusuario->save();
 
         $tusuario= new \App\Tipousuario();

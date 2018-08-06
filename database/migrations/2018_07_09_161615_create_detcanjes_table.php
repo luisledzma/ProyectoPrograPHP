@@ -22,6 +22,7 @@ class CreateDetcanjesTable extends Migration
             $table->foreign('enccanje_id')->references('id')->on('enccanjes')->onDelete('cascade');
             $table->integer('material_id')->unsigned();
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

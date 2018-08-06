@@ -9,7 +9,7 @@
           <h1 class="header center teal-text text-lighten-2">Ecologia</h1>
           @guest
             <div class="row center">
-              <h5 class="header col s12 light">Registrate para obtener los beneficios de las eco-monedas.</h5>
+              <h5 class="header col s12 m12 l12 xl12 light">Registrate para obtener los beneficios de las eco-monedas.</h5>
             </div>
             <div class="row center">
               <a href="{{ route('register') }}" id="download-button" class="btn-large modal-trigger pulse waves-effect waves-light teal lighten-1">Registrarse</a>
@@ -22,13 +22,23 @@
           </div>
         <div class="parallax"><img style="width:1500px;height:600px;background-color:" src="{{ URL::to('img/f7.jpg') }}" alt="Unsplashed background img 1"/></div>
       </div>
+      @if(Session::has('info'))
+            <div class="row">
+                <div class="col s6 offset-s3">
+                  <!-- <div class="card-panel teal lighten-2">{{Session::get('info')}}</div> -->
+                  <script>
+                    M.toast({html: 'Cambios guardados correctamente.'})
+                  </script>
+                </div>
+            </div>
+      @endif
       <div class="container">
         <div class="card-panel green lighten-5">This is a card panel with a teal lighten-2 class</div>
         <div class="row">
-          <div class="col s6">
+          <div class="col s12 m12 l6 xl6">
 
             <div class="row">
-              <div class="col s12">
+              <div class="col s12 m12 l12 xl12">
                 <div class="card-panel teal">
                   <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                   I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -38,7 +48,7 @@
             </div>
 
             <div class="row">
-              <div class="col s12">
+              <div class="col s12 m12 l12 xl12">
                 <div class="card-panel teal">
                   <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                   I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -48,7 +58,7 @@
             </div>
 
             <div class="row">
-              <div class="col s12">
+              <div class="col s12 m12 l12 xl12">
                 <div class="card-panel teal">
                   <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                   I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -59,7 +69,7 @@
 
           </div>
 
-          <div class="col s6">
+          <div class="col s12 m12 l6 xl6">
 
             <div class="row">
               <div class="col s12">

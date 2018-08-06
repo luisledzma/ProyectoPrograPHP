@@ -1,17 +1,17 @@
 @extends('PaginaPrincipal.master')
-@section('titulo','Centros')
+@section('titulo','Materiales')
 @section('contenido')
 
 <div class="row" style="padding-top:50px;">
-  <div class="col s12 m8 l6 xl6 offset-m2 offset-l3 offset-xl3 ">
+  <div class="col s12 m8 l4 xl4 offset-m2 offset-l4 offset-xl4 ">
     <blockquote>
-      <h5>Centros de Acopio.</h5>
+      <h5>Materiales.</h5>
     </blockquote>
   </div>
-  <div class="col s6 s12 m8 l6 xl6 offset-m2 offset-l3 offset-xl3">
+  <div class="col s12 m8 l4 xl4 offset-m2 offset-l4 offset-xl4 ">
     @if(Session::has('info'))
           <div class="row">
-              <div class="col s12 m8 l6 xl6 offset-m2 offset-l3 offset-xl3">
+              <div class="col s6 offset-s3">
                 <!-- <div class="card-panel teal lighten-2">{{Session::get('info')}}</div> -->
                 <script>
                   M.toast({html: 'Cambios guardados correctamente.'})
@@ -22,13 +22,13 @@
   @can ('create-ct')
     <div class="row">
         <div class="col s12 m12 l12 xl12">
-            <a href="{{ route('centro.create')}}" class="waves-effect waves-light btn">Nuevo</a>
+            <a href="{{ route('material.create')}}" class="waves-effect waves-light btn">Nuevo</a>
         </div>
     </div>
   @endcan
 
 
-  <div class="col s12 m12 l12 xl12" style="box-shadow: 3px 5px 8px #888888;">
+  <div class="col s12 m12 l12 xl12 " style="box-shadow: 3px 5px 8px #888888;">
 
     <table class="responsive-table striped">
     <thead>
@@ -39,16 +39,17 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($centros as $ct)
+      @foreach ($materiales as $ma)
       <tr>
-        <th scope="row">{{ $ct->nombre }}</th>
-        <th scope="row">{{ $ct->deleted_at == null?'Activo':'Inactivo' }}</th>
-        <td><a class="waves-effect waves-light btn" href="{{ route('centro.edit',['ct'=>$ct->id])}}">Editar</a></td>
+        <th scope="row">{{ $ma->nombre }}</th>
+        <th scope="row">{{ $ma->deleted_at == null?'Activo':'Inactivo' }}</th>
+        <td><a class="waves-effect waves-light btn" href="{{ route('material.edit',['ma'=>$ma->id])}}">Editar</a></td>
       </tr>
       @endforeach
+
     </tbody>
   </table>
-  {{$centros->links()}}
+  {{$materiales->links()}}
   </div>
 
 

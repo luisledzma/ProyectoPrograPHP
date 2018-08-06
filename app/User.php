@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     use Notifiable;
 
     /**
@@ -15,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','adress','phone','tipousuario_id','estado'
+        'name', 'email', 'password','adress','phone','estado'
     ];
 
     /**
@@ -39,14 +42,30 @@ class User extends Authenticatable
 
     public function tipoUsuario() {
       // el 2 paramtro  de la llave foranea de la tabla de afuera    return $this->belongsTo('App\Videojuego','videojuego_id');
-      return $this->belongsTo('App\Tipousuario');
+      //return $this->belongsTo('App\TipoUsuario');
+      return $this->belongsToMany(
+        'App\TipoUsuario',
+        'tipo_user',
+        'user_id',
+        'tipoUsuario_id'
+      )->withTimestamps();
     }
 
+    // public function tieneAcceso(array $permisos){
+    //     if($this->tipoUsuario->tieneAcceso($permisos)){
+    //       return true;
+    //     }
+    //   return false;
+    // }
+
     public function tieneAcceso(array $permisos){
-        if($this->tipoUsuario->tieneAcceso($permisos)){
-          return true;
+        foreach ($this->tipoUsuario as $permiso) {
+          if($permiso->tieneAcceso($permisos)){
+            return true;
+          }
         }
-      return false;
+        return false;
     }
+
 
 }

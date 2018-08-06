@@ -21,6 +21,7 @@ class CreateCentrosTable extends Migration
             $table->boolean('estado')->default(true);
             $table->unsignedInteger('user_id');
             //--Asociarlo con un usuario
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')->
             references('id')->

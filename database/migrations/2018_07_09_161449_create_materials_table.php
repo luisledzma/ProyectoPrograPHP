@@ -15,13 +15,12 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('nombre',100);
             $table->string('imagen',100);
-            $table->decimal('precio');
+            $table->integer('precio');
             $table->string('color',25);
-            $table->integer('tipomaterial_id')->unsigned();
-            $table->foreign('tipomaterial_id')->references('id')->on('tipomaterials')->onDelete('cascade');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
