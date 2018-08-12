@@ -18,13 +18,13 @@
               </div>
           </div>
     @endif
-  @can ('create-ct')
+
     <div class="row">
         <div class="col s12 m12 l12 xl12">
             <a href="{{ route('cupon.create')}}" class="waves-effect waves-light btn">Nuevo</a>
         </div>
     </div>
-  @endcan
+
 
 
   <div class="col s12 m12 l12 xl12 " style="box-shadow: 3px 5px 8px #888888;">
@@ -35,6 +35,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Estado</th>
         <th scope="col">Editar</th>
+        <th scope="col">Detalle</th>
       </tr>
     </thead>
     <tbody>
@@ -42,7 +43,8 @@
       <tr>
         <th scope="row">{{ $cu->nombre }}</th>
         <th scope="row">{{ $cu->deleted_at == null?'Activo':'Inactivo' }}</th>
-        <td><a class="waves-effect waves-light btn" href="{{ route('material.edit',['cu'=>$cu->id])}}">Editar</a></td>
+        <td><a class="waves-effect waves-light btn" href="{{ route('cupon.edit',['cu'=>$cu->id])}}">Editar</a></td>
+        <td><a class="waves-effect waves-light btn" href="{{ route('cupon.detalle',['cu'=>$cu->id])}}">Ver</a></td>
       </tr>
       @endforeach
 

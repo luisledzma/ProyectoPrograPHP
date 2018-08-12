@@ -51,6 +51,17 @@ class User extends Authenticatable
       )->withTimestamps();
     }
 
+    public function cupones() {
+      // el 2 paramtro  de la llave foranea de la tabla de afuera    return $this->belongsTo('App\Videojuego','videojuego_id');
+      //return $this->belongsTo('App\TipoUsuario');
+      return $this->belongsToMany(
+        'App\Cupon',
+        'user_cupon',
+        'user_id',
+        'cupon_id'
+      )->withTimestamps();
+    }
+
     // public function tieneAcceso(array $permisos){
     //     if($this->tipoUsuario->tieneAcceso($permisos)){
     //       return true;

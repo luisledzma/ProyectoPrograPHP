@@ -10,7 +10,7 @@
         </blockquote>
       </div>
       <div class="col s12 m8 l6 xl6 offset-m2 offset-l3 offset-xl3" style="box-shadow: 3px 5px 8px #888888;padding-top:15px;">
-          <form action="{{ route('material.create') }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('cupon.create') }}" method="post" enctype="multipart/form-data">
             <div class="input-field col s12 m12 l6 xl6">
               <input id="name" type="text" class="validate{{ $errors->has('name') ? ' is-invalid' : '' }}" autocomplete="off" name="name" value="{{ old('name') }}" required autofocus>
               <label for="name" >Nombre</label>
@@ -22,7 +22,7 @@
             </div>
             <div class="input-field col s12 m12 l6 xl6">
               <input id="precio" autocomplete="off" type="text" class="validate"  name="precio" required>
-              <label for="precio" >Precio unitario</label>
+              <label for="precio" >Eco Monedas Necesarias</label>
               <div class="col s12 m12 l12 xl12">
                   @if ($errors->has('precio'))
                   <div class="card-panel red lighten-2 white-text">{{ $errors->first('precio') }}</div>

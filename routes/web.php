@@ -27,6 +27,11 @@ Route::group(['prefix'=>'centro','middleware'=>'auth'], function(){
       'as'=>'centro.index'
     ]
   );
+  Route::get('registro', [
+      'uses'=>'CentroController@getRegistroCanjes',
+      'as'=>'centro.registroCanjes'
+    ]
+  );
   Route::get('create',
     [
       'uses'=>'CentroController@getCentroCreate',
@@ -34,10 +39,24 @@ Route::group(['prefix'=>'centro','middleware'=>'auth'], function(){
 
     ]
   );
+  Route::get('createCanje',
+    [
+      'uses'=>'CentroController@getCreateCanje',
+      'as'=>'centro.canje',
+
+    ]
+  );
   Route::post('create',
     [
       'uses'=>'CentroController@ctCentroCreate',
       'as'=>'centro.create',
+
+    ]
+  );
+  Route::post('createCanje',
+    [
+      'uses'=>'CentroController@ctCentroCreate',
+      'as'=>'centro.canje',
 
     ]
   );
@@ -161,25 +180,31 @@ Route::group(['prefix'=>'cupones','middleware'=>'auth'], function(){
       'as'=>'cupon.create',
     ]
   );
-  // Route::post('create',
-  //   [
-  //     'uses'=>'MaterialController@MaterialCreate',
-  //     'as'=>'material.create',
-  //
-  //   ]
-  // );
-  // Route::get('edit/{id}',
-  //   [
-  //     'uses'=>'MaterialController@getMaterialEdit',
-  //     'as'=>'material.edit',
-  //   ]
-  // );
-  // Route::post('edit',
-  //   [
-  //     'uses'=>'MaterialController@MaterialUpdate',
-  //     'as'=>'material.update',
-  //   ]
-  // );
+   Route::post('create',
+     [
+       'uses'=>'CuponController@CuponCreate',
+       'as'=>'cupon.create',
+
+     ]
+   );
+  Route::get('edit/{id}',
+     [
+       'uses'=>'CuponController@getCuponEdit',
+       'as'=>'cupon.edit',
+     ]
+   );
+   Route::get('detalle/{id}',
+      [
+        'uses'=>'CuponController@getCuponDet',
+        'as'=>'cupon.detalle',
+      ]
+    );
+   Route::post('edit',
+     [
+       'uses'=>'CuponController@CuponUpdate',
+       'as'=>'cupon.update',
+     ]
+   );
 
 });
 

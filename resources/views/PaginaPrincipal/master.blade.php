@@ -22,7 +22,7 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="#">Item1</a></li>
-          <li><a href="#">Item2</a></li>
+          <li><a href="{{route('centro.registroCanjes')}}">Gestión de Centro</a></li>
           @guest
           @else
           <li>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Centro;
 use App\User;
+use App\Enccanje;
+use App\Material;
 use App\TipoUsuario;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +25,16 @@ class CentroController extends Controller
       return view('centro.index',['centros'=>$centros]);
     }
 
+    public function getRegistroCanjes(){// ya no necesito la sesión en este caso getCentroIndex(Store $session)
+      $canjes=Enccanje::orderBy('created_at','desc');
+
+      //if(Gate::denies('see-all-vj')){
+        //$videojuegos=$videojuegos->where('user_id',auth()->user()->id);
+      //}
+      $canjes=$canjes->paginate(5);
+      return view('centro.registoCanjes',['canjes'=>$canjes]);
+    }
+
     public function getCentroEdit($id){
       $centro = Centro::withTrashed()->where('id',$id)->first();
       // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
@@ -31,6 +43,11 @@ class CentroController extends Controller
       return view('centro.edit',['centro'=>$centro,'admins'=>$admins]);
     }
 
+    public function getCreateCanje(){
+      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      $materiales=Material::orderBy('nombre','asc');
+      return view('centro.create',['materiales'=>$materiales]);
+    }
 
     public function getCentroCreate(){
       // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
