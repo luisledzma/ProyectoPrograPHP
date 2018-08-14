@@ -16,37 +16,37 @@
 
   </head>
   <body>
-    <nav>
+    <nav class="light-blue lighten-5">
       <div class="nav-wrapper">
         <a href="{{route('pr.index')}}" class="brand-logo"><img style="width:55px;height:55px;" src="{{ URL::to('img/logo.png') }}"/></a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="#">Item1</a></li>
-          <li><a href="{{route('centro.registroCanjes')}}">Gestión de Centro</a></li>
+          <li><a class="blue-grey-text text-darken-1" href="#">Item1</a></li>
+          <li><a class="blue-grey-text text-darken-1" href="{{route('centro.registroCanjes')}}">Gestión de Centro</a></li>
           @guest
           @else
           <li>
-            <a class='dropdown-trigger' href='#' data-target='dropdown1'>Mantenimientos</a>
+            <a class='dropdown-trigger blue-grey-text text-darken-1' href='#' data-target='dropdown1'>Mantenimientos</a>
             <ul id='dropdown1' class='dropdown-content'>
-              <li><a href="{{ route('centro.index')}}">Centro de Acopio</a></li>
-              <li><a href="{{ route('material.index')}}">Materiales</a></li>
+              <li><a class="light-blue-text text-lighten-1" href="{{ route('centro.index')}}">Centro de Acopio</a></li>
+              <li><a class="light-blue-text text-lighten-1" href="{{ route('material.index')}}">Materiales</a></li>
               <li class="divider" tabindex="-1"></li>
-              <li><a href="{{ route('usuario.index')}}">Usuarios</a></li>
-              <li><a href="{{ route('cupon.index')}}">Cupones</a></li>
-              <li><a href="#!">five</a></li>
+              <li><a class="light-blue-text text-lighten-1" href="{{ route('usuario.index')}}">Usuarios</a></li>
+              <li><a class="light-blue-text text-lighten-1" href="{{ route('cupon.index')}}">Cupones</a></li>
+              <li><a class="light-blue-text text-lighten-1" href="#!">five</a></li>
             </ul>
           </li>
           @endguest
           @guest
-          <li><a href="{{ route('register') }}">Registrarse</a></li>
-          <li><a id="login" href="#">Iniciar Sesión</a></li>
+          <li><a class="blue-grey-text text-darken-1" href="{{ route('register') }}">Registrarse</a></li>
+          <li><a class="blue-grey-text text-darken-1" id="login" href="#">Iniciar Sesión</a></li>
           @else
-          <a class='dropdown-trigger btn' href='#' data-target='myUser'>{{ Auth::user()->name }}</a>
+          <li><a class='dropdown-trigger blue-grey-text text-darken-1 ' href='#' data-target='myUser'>{{ Auth::user()->name }}</a></li>
           <ul id='myUser' class='dropdown-content'>
-            <li><a href="{{ route('register') }}">Mi Perfil</a></li>
-            <li><a href="{{ route('usuario.password')}}">Cambiar Contraseña</a></li>
+            <li><a class="light-blue-text text-lighten-1" href="{{ route('register') }}">Mi Perfil</a></li>
+            <li><a class="light-blue-text text-lighten-1" href="{{ route('usuario.password')}}">Cambiar Contraseña</a></li>
             <li class="divider" tabindex="-1"></li>
-            <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Cerrar Sesión') }}</a></li>
+            <li><a class="light-blue-text text-lighten-1" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Cerrar Sesión') }}</a></li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
@@ -105,6 +105,28 @@
         @yield('contenido')
     </div>
 
+    @guest
+    @else
+    <div class="fixed-action-btn direction-top active" style="bottom: 45px; right: 24px;">
+      <a id="billetera" class="waves-effect btn-large light-blue lighten-1 waves-light btn btn-floating" ><i class="material-icons">account_balance</i></a>
+      <div class="tap-target light-blue lighten-5" data-target="billetera">
+
+        <div class="tap-target-content center-align black-text lighten-5">
+              <h5>Mi Billetera</h5>
+              <p>
+                Eco<i class="material-icons">attach_money</i> Diponibles:
+                <br>
+                Eco<i class="material-icons">attach_money</i>Canjeadas:
+                <br>
+                Total Eco<i class="material-icons">attach_money</i>Generadas:
+              </p>
+        </div>
+      </div>
+    </div>
+    @endguest
+
+
+
     <footer class="page-footer">
        <div class="container">
          <div class="row">
@@ -132,6 +154,9 @@
 
 
 
+
+
+
   <script>
     $(document).ready(function(){
       $('.modal').modal();
@@ -141,6 +166,19 @@
      $(document).ready(function(){
       $('.sidenav').sidenav();
     });
+    $(document).ready(function(){
+    $('.tap-target').tapTarget();
+    });
+    $( "#billetera" ).click(function() {
+      $('.tap-target').tapTarget('open');
+    });
+    $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
+
+
+
+
   </script>
 
 

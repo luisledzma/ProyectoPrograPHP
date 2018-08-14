@@ -11,8 +11,14 @@
 |
 */
 
-Route::get('/','PrincipalController@getIndex'
-)->name('pr.index');
+// Route::get('/','PrincipalController@getIndex'
+// )->name('pr.index');
+
+Route::get('', [
+    'uses'=>'PrincipalController@getIndex',
+    'as'=>'pr.index'
+  ]
+);
 
 
 Route::get('registro',

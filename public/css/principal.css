@@ -9,10 +9,10 @@
     flex: 1 0 auto;
   }
 
-  nav {
+  /* nav {
     color: #fff !important;
-    background-color: #383E63 !important;
-  }
+    background-color: rgba(50,196,100)!important;
+  } */
 .page-footer{
   background-color: #000;
 }

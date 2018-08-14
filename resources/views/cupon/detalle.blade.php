@@ -14,7 +14,7 @@
             <p>
               {{$cupon->descripcion}}
             </p>
-            <img src="{{asset('storage/'.$cupon->imagen)}}"/>
+            <img class="responsive-img" src="{{asset('storage/'.$cupon->imagen)}}"/>
 
           </form>
       </div>

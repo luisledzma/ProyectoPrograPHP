@@ -3,24 +3,24 @@
 @section('contenido')
       <link rel="stylesheet" href="{{ URL::to('css/parallax.css') }}" />
       <div id="index-banner" class="parallax-container">
-        <div class="section no-pad-bot">
+        <div class="section no-pad-bot text-light-green">
           <div class="container">
           <br><br>
-          <h1 class="header center teal-text text-lighten-2">Ecologia</h1>
+          <h1 class="header center green-text text-lighten-3">Eco-monedas</h1>
           @guest
             <div class="row center">
-              <h5 class="header col s12 m12 l12 xl12 light">Registrate para obtener los beneficios de las eco-monedas.</h5>
+              <h5 class="header col s12 m12 l12 xl12 white-text text-lighten-2">Registrate para obtener los beneficios de las eco-monedas.</h5>
             </div>
             <div class="row center">
               <a href="{{ route('register') }}" id="download-button" class="btn-large modal-trigger pulse waves-effect waves-light teal lighten-1">Registrarse</a>
             </div>
             @else
-              <h2 class="header center teal-text text-lighten-2">Bienvenido</h1>
+              <h4 class="header center white-text text-lighten-2">Nuestra razón de ser está enfocada a reducir el impacto ambiental de los envases puestos en el mercado</h1>
             @endguest
             <br><br>
             </div>
           </div>
-        <div class="parallax"><img style="width:1500px;height:600px;background-color:" src="{{ URL::to('img/f7.jpg') }}" alt="Unsplashed background img 1"/></div>
+        <div class="parallax"><img style="width:1500px;height:800px;background-color:" src="{{ URL::to('img/f8.jpg') }}" alt="Unsplashed background img 1"/></div>
       </div>
       @if(Session::has('info'))
             <div class="row">
@@ -32,64 +32,117 @@
                 </div>
             </div>
       @endif
-      <div class="container">
-        <div class="card-panel green lighten-5">This is a card panel with a teal lighten-2 class</div>
+      <div class="">
+
+    <div class="container">
+      <div class="section">
+
+        <!--   Icon Section   -->
         <div class="row">
-          <div class="col s12 m12 l6 xl6">
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <div class="center brown-text"><img class="responsive-img" src="{{ URL::to('img/leaf.png') }}" /></div>
+              <h5 class="center">Beneficios del reciclaje de envases</h5>
 
-            <div class="row">
-              <div class="col s12 m12 l12 xl12">
-                <div class="card-panel teal">
-                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-                  </span>
-                </div>
-              </div>
+              <p class="light">El reciclaje de envases conlleva considerables beneficios ambientales en cuanto a ahorro de materias primas, energía, agua y reducción de las emisiones de gases de efecto invernadero.El reciclaje de envases no sólo es una opción positiva para el medio ambiente, sino que también es una oportunidad económica y social. </p>
             </div>
-
-            <div class="row">
-              <div class="col s12 m12 l12 xl12">
-                <div class="card-panel teal">
-                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col s12 m12 l12 xl12">
-                <div class="card-panel teal">
-                  <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                  I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-                  </span>
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          <div class="col s12 m12 l6 xl6">
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <div class="center brown-text"><img class="responsive-img" src="{{ URL::to('img/bottle.jpg') }}" /></div>
+              <h5 class="center">Los envases en nuestra sociedad</h5>
 
-            <div class="row">
-              <div class="col s12">
-                <div class="card-panel teal">
-                  <span class="white-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </span>
-                </div>
-              </div>
+              <p class="light">Un consumo responsable que sea más respetuoso con el entorno natural y que suponga un ahorro de materias primas en beneficio del medio ambiente. En la sociedad actual, donde el respeto por el medio ambiente y el comportamiento cívico deben ir unidos, se promueven hábitos de vida saludables como el hecho de reciclar bien separando correctamente los envases en el hogar.</p>
             </div>
+          </div>
 
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <div class="center brown-text"><img class="responsive-img" src="{{ URL::to('img/plant.jpg') }}" /></div>
+              <h5 class="center">El medio ambiente a través del reciclaje</h5>
+
+              <p class="light">Es importante proporcionar a la sociedad una respuesta colectiva de los agentes económicos ante los temas medioambientales relacionados con el consumo de productos envasados domésticos, logrando el cumplimiento de los objetivos marcados por la Ley, con la mayor eficiencia en el uso de los recursos de la compañía.</p>
+            </div>
           </div>
         </div>
+
+      </div>
+    </div>
+
+
+    <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header col s12 light">Nuestros centros de acopio estan distribuidos en todo el país</h5>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img class="responsive-img" src="{{ URL::to('img/f6.jpg') }}" /></div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+          <div class="row">
+
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center brown-text"><i class="material-icons">home</i></h2>
+                <h5 class="center">Centro de Acopio</h5>
+                <p class="light">Provincia:</p>
+                <p class="light">Dirección:</p>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center brown-text"><i class="material-icons">home</i></h2>
+                <h5 class="center">Centro de Acopio</h5>
+                <p class="light">Provincia:</p>
+                <p class="light">Dirección:</p>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center brown-text"><i class="material-icons">home</i></h2>
+                <h5 class="center">Centro de Acopio</h5>
+                <p class="light">Provincia:</p>
+                <p class="light">Dirección:</p>
+              </div>
+            </div>
+
+        </div>
+      </div>
+  </div>
+
+
+    <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img class="responsive-img" src="{{ URL::to('img/f7.jpg') }}" /></div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+
+        <div class="row">
+          <div class="col s12 center">
+            <h3><i class="mdi-content-send brown-text"></i></h3>
+            <h4>Contact Us</h4>
+            <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+          </div>
+        </div>
+
+      </div>
+  </div>
+
+
+
       </div>
 
 
