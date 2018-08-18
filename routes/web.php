@@ -52,6 +52,21 @@ Route::group(['prefix'=>'centro','middleware'=>'auth'], function(){
 
     ]
   );
+
+  Route::get('canjeTemp',
+    [
+      'uses'=>'CentroController@llenarTablaDetCanjesTemporal',
+      'as'=>'centro.canjeTemporal',
+
+    ]
+  );
+  Route::get('dCanjeTemp',
+    [
+      'uses'=>'CentroController@eliminarCanjeTemp',
+      'as'=>'centro.dCanjeTemp',
+
+    ]
+  );
   Route::post('create',
     [
       'uses'=>'CentroController@ctCentroCreate',
@@ -61,7 +76,7 @@ Route::group(['prefix'=>'centro','middleware'=>'auth'], function(){
   );
   Route::post('createCanje',
     [
-      'uses'=>'CentroController@ctCentroCreate',
+      'uses'=>'CentroController@canjeCreate',
       'as'=>'centro.canje',
 
     ]

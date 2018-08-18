@@ -11,6 +11,8 @@ use App\Material;
 use App\TipoUsuario;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Session;
 
 class CentroController extends Controller
 {
@@ -45,8 +47,40 @@ class CentroController extends Controller
 
     public function getCreateCanje(){
       // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
-      $materiales=Material::orderBy('nombre','asc');
-      return view('centro.create',['materiales'=>$materiales]);
+      $materiales=Material::orderBy('nombre','asc')->pluck('nombre','id');
+      $user = Auth::user();
+      return view('centro.createCanje',['usuario'=>$user],compact('materiales'));
+    }
+
+    public function llenarTablaDetCanjesTemporal(){
+      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      $det = new \App\Detcanje;
+      $det->enccanje_id = '1';
+      $det->material_id = '1';
+      $det->cantidad = 1;
+      $det->subTotal = 20;
+
+      if (Session::has('prueba')) {
+        $temporal = Session::pull('prueba');
+        $temporal[] = $det;
+        Session::put('prueba', $temporal);
+      }else {
+        $infodet[] = $det;
+        Session::put('prueba', $infodet);
+      }
+
+      $materiales=Material::orderBy('nombre','asc')->pluck('nombre','id');
+      $user = Auth::user();
+      return view('centro.createCanje',['usuario'=>$user],compact('materiales'))
+      ->with('prueba');
+    }
+
+    public function eliminarCanjeTemp(){
+      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      Session::forget('prueba');
+      $materiales=Material::orderBy('nombre','asc')->pluck('nombre','id');
+      $user = Auth::user();
+      return view('centro.createCanje',['usuario'=>$user],compact('materiales'));
     }
 
     public function getCentroCreate(){
@@ -55,6 +89,19 @@ class CentroController extends Controller
       ->where('tipo_user.tipoUsuario_id',2)->orderby('name')->pluck('name','id');
       return view('centro.create',compact('admins'));
     }
+    public function canjeCreate(Request $request)
+    {
+
+        //$user=User::where('id',2);
+        //$ct->user()->associate($user);
+        /*$Videojuego->addVideojuego($session,
+        $request->input('nombre'),
+        $request->input('descripcion'),
+        $request->input('fechaEstrenoInicial'));*/
+        return redirect()
+        ->route('centro.registroCanjes');
+    }
+
     public function ctCentroCreate(Request $request)
     {
       $this->validate($request, [

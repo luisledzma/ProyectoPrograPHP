@@ -320,7 +320,9 @@ class ComposerStaticInit767528b8fab54b8ca6745c512aa62bd7
     );
 
     public static $classMap = array (
+        'App\\Billeteravirtual' => __DIR__ . '/../..' . '/app/Billeteravirtual.php',
         'App\\Centro' => __DIR__ . '/../..' . '/app/Centro.php',
+        'App\\Consecutivo' => __DIR__ . '/../..' . '/app/Consecutivo.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Cupon' => __DIR__ . '/../..' . '/app/Cupon.php',
         'App\\Detcanje' => __DIR__ . '/../..' . '/app/Detcanje.php',
@@ -330,6 +332,7 @@ class ComposerStaticInit767528b8fab54b8ca6745c512aa62bd7
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\BilleteraController' => __DIR__ . '/../..' . '/app/Http/Controllers/BilleteraController.php',
         'App\\Http\\Controllers\\CentroController' => __DIR__ . '/../..' . '/app/Http/Controllers/CentroController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CuponController' => __DIR__ . '/../..' . '/app/Http/Controllers/CuponController.php',
@@ -357,6 +360,7 @@ class ComposerStaticInit767528b8fab54b8ca6745c512aa62bd7
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'CentroTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CentroTableSeeder.php',
+        'ConsecutivoTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ConsecutivoTableSeeder.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -468,6 +472,7 @@ class ComposerStaticInit767528b8fab54b8ca6745c512aa62bd7
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+        'EnccanjeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/EnccanjeTableSeeder.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Inn.php',
         'Faker\\Calculator\\Luhn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Luhn.php',
