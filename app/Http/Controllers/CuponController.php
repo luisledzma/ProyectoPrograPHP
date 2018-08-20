@@ -8,6 +8,15 @@ use App\Cupon;
 use Carbon\Carbon;
 use Auth;
 use Gate;
+use App\Centro;
+use App\User;
+use App\Enccanje;
+use App\Consecutivo;
+use App\Material;
+use App\TipoUsuario;
+use App\Billeteravirtual;
+use Illuminate\Support\Facades\DB;
+
 
 class CuponController extends Controller
 {
@@ -20,6 +29,50 @@ class CuponController extends Controller
 
   public function getCuponCreate(){
     return view('cupon.create');
+  }
+
+  public function getCambiarCupon(){
+    $centros=Centro::all();
+    $user = Auth::user();
+    $cupones = Cupon::all();
+    $materiales = Material::all();
+    if($user == null){
+      return view('cupon.cupones',['centros'=>$centros,'materiales'=>$materiales,'cupones'=>$cupones]);
+    }
+    else{
+      $billetera = Billeteravirtual::where('usuario',$user->id)->first();
+      return view('cupon.cupones',['centros'=>$centros,'billetera'=>$billetera,'materiales'=>$materiales,'cupones'=>$cupones]);
+    }
+    // return view('cupon.cupones');
+  }
+
+  public function CuponCambiar(Request $request)
+  {
+        $this->validate($request, [
+          'cupon' => 'required|numeric|min:1'
+      ]);
+      $cupon = Cupon::find($request->input('cupon'));
+      if($cupon == null){
+        return redirect()
+        ->route('cupon.cambiarCup')
+        ->with('info', 'El cupón no existe');
+      }
+      $user = Auth::user();
+      $billetera = Billeteravirtual::where('usuario',$user->id)->first();
+      if($billetera->cantEcoDisponibles >= $cupon->cantEcoNecesarias){
+        $billetera->cantEcoDisponibles -= $cupon->cantEcoNecesarias;
+        $billetera->cantEcoPorTiquetes += $cupon->cantEcoNecesarias;
+        $billetera->cantEcoTotal += 0;
+        $billetera->save();
+        $pathtoFile = public_path().'/'.'storage/'.$cupon->imagen;
+        return Storage::download($pathtoFile);
+      }
+      else{
+        return redirect()
+        ->route('cupon.cambiarCup')
+        ->with('info', 'No posee la cantidad de ecomonedas necesarias');
+      }
+
   }
 
   public function cuponCreate(Request $request)

@@ -14,15 +14,17 @@ class TipousuarioTableSeeder extends Seeder
         //
         $tusuario= new \App\tipousuario();
         $tusuario->nombre = 'Administrador';
-        $tusuario->permissions = json_encode(['create-ct' => true,'create-cp' => true]);
+        $tusuario->permissions = json_encode(['create-ct' => true,'mant-admin' => true]);
         $tusuario->save();
 
         $tusuario= new \App\Tipousuario();
         $tusuario->nombre = 'Administrador Centro Acopio';
+        $tusuario->permissions = json_encode(['admin-canjes' => true]);
         $tusuario->save();
 
         $tusuario= new \App\Tipousuario();
         $tusuario->nombre = 'Cliente';
+        $tusuario->permissions = json_encode(['bill-virt' => true,'cliente-cupones' => true]);
         $tusuario->save();
     }
 }

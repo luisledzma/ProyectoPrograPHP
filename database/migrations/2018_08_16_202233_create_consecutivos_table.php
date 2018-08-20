@@ -14,6 +14,7 @@ class CreateConsecutivosTable extends Migration
     public function up()
     {
         Schema::create('consecutivos', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('consecutivo');
             $table->string('nombre',100);
             $table->timestamps();

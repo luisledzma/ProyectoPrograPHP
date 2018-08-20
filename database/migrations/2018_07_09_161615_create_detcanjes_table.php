@@ -17,7 +17,7 @@ class CreateDetcanjesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('cantidad');
-            $table->decimal('subtotal');
+            $table->integer('subtotal');
             $table->integer('enccanje_id')->unsigned();
             $table->foreign('enccanje_id')->references('id')->on('enccanjes')->onDelete('cascade');
             $table->integer('material_id')->unsigned();

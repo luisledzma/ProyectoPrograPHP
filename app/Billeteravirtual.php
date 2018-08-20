@@ -9,5 +9,5 @@ class Billeteravirtual extends Model
     //
     protected $fillable=['usuario','cantEcoDisponibles','cantEcoPorTiquetes','cantEcoTotal'];
 
-    
+  
 }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Centro;
+use App\Material;
+use App\Billeteravirtual;
 use App\TipoUsuario;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -90,8 +93,15 @@ class UsuarioController extends Controller
 
 
   public function getUsuarioPassword(){
+    $centros=Centro::all();
     $usuario = Auth::user();
-    return view('auth.passwords.reset',['token'=>$usuario->token]);
+    $materiales = Material::all();
+
+    $billetera = Billeteravirtual::where('usuario',$usuario->id)->first();
+    return view('auth.passwords.reset',['token'=>$usuario->token,'centros'=>$centros,'billetera'=>$billetera,'materiales'=>$materiales]);
+
+
+
   }
 
   public function PasswordUpdate(Request $request)

@@ -14,7 +14,7 @@ class ConsecutivoTableSeeder extends Seeder
         //
         $consecutivo = new \App\Consecutivo;
         $consecutivo->consecutivo = 1;
-        $consecutivo->nombre = 'consecutivo';
+        $consecutivo->nombre = 'Canje';
         $consecutivo->save();
     }
 }

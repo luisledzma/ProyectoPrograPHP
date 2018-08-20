@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Centro;
 use App\User;
 use App\Enccanje;
+use App\Consecutivo;
 use App\Material;
 use App\TipoUsuario;
+use App\Billeteravirtual;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,10 +31,6 @@ class CentroController extends Controller
 
     public function getRegistroCanjes(){// ya no necesito la sesión en este caso getCentroIndex(Store $session)
       $canjes=Enccanje::orderBy('created_at','desc');
-
-      //if(Gate::denies('see-all-vj')){
-        //$videojuegos=$videojuegos->where('user_id',auth()->user()->id);
-      //}
       $canjes=$canjes->paginate(5);
       return view('centro.registoCanjes',['canjes'=>$canjes]);
     }
@@ -45,43 +43,133 @@ class CentroController extends Controller
       return view('centro.edit',['centro'=>$centro,'admins'=>$admins]);
     }
 
+    //CANJES----------------------------------------
+
     public function getCreateCanje(){
-      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
+      $miUsuario = Auth::user();
+      $centros = Centro::where('user_id',$miUsuario->id)->get();
+      // $centros = Centro::all();
       $materiales=Material::orderBy('nombre','asc')->pluck('nombre','id');
-      $user = Auth::user();
-      return view('centro.createCanje',['usuario'=>$user],compact('materiales'));
+      return view('centro.createCanje',['materiales'=>$materiales,'centros'=>$centros]);
     }
 
-    public function llenarTablaDetCanjesTemporal(){
-      // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
-      $det = new \App\Detcanje;
-      $det->enccanje_id = '1';
-      $det->material_id = '1';
-      $det->cantidad = 1;
-      $det->subTotal = 20;
+    public function ValidaUsuarioCanje(Request $request){
+      $this->validate($request, [
+          'email' => 'required|min:5',
+          'centro' => 'required',
+      ]);
+      $user = DB::table('users')->join('tipo_user', 'users.id', '=', 'tipo_user.user_id')
+      ->where('tipo_user.tipoUsuario_id',3)->where('email',$request->input('email'))->first();
+      // $user = User::where('email',$request->input('email'))->first();
+      if($user == null){
+        return redirect()
+        ->route('centro.canje')
+        ->with('info', 'El correo Electrónico no es valido');
+      }
+      else{
+        $consecutivo = Consecutivo::where('nombre','Canje')->first();
+        $miCons = $consecutivo->consecutivo;
+        $consecutivo->consecutivo = $miCons + 1;
+        $consecutivo->save();
 
-      if (Session::has('prueba')) {
-        $temporal = Session::pull('prueba');
+        $Enc = new \App\Enccanje;
+        $Enc->consecutivo = $miCons;
+        $Enc->usuario_id = $user->id;
+        $Enc->centro_id = $request->input('centro');
+        $Enc->fecha = Carbon::now();
+        $infoEnc[] = $Enc;
+        Session::put('miCanje', $infoEnc);
+        return redirect()
+        ->route('centro.canje');
+      }
+    }
+
+
+    public function CreateDetalle(Request $request){
+
+      $this->validate($request, [
+          'material' => 'required',
+          'cantidad'=>'required|numeric|min:1'
+      ]);
+      $mat = Material::find($request->input('material'));
+
+      $Enc = Session::get('miCanje.consecutivo');
+      $det = new \App\Detcanje;
+
+      $det->enccanje_id = $Enc;
+      $det->material_id = $request->input('material');
+      $det->cantidad = $request->input('cantidad');
+      $det->subTotal = $mat->precio * $request->input('cantidad');
+
+      if (Session::has('miDet')) {
+        $temporal = Session::pull('miDet');
         $temporal[] = $det;
-        Session::put('prueba', $temporal);
+        Session::put('miDet', $temporal);
       }else {
         $infodet[] = $det;
-        Session::put('prueba', $infodet);
+        Session::put('miDet', $infodet);
       }
 
+      $miUsuario = Auth::user();
+      $centros = Centro::where('user_id',$miUsuario->id)->get();
       $materiales=Material::orderBy('nombre','asc')->pluck('nombre','id');
-      $user = Auth::user();
-      return view('centro.createCanje',['usuario'=>$user],compact('materiales'))
-      ->with('prueba');
+      return view('centro.createCanje',['materiales'=>$materiales,'centros'=>$centros])->with('miDet');
+
+
     }
 
-    public function eliminarCanjeTemp(){
+    public function RegresarCanje(){
       // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
-      Session::forget('prueba');
+      Session::forget('miCanje');
+      Session::forget('miDet');
+      $miUsuario = Auth::user();
+      $centros = Centro::where('user_id',$miUsuario->id)->get();
       $materiales=Material::orderBy('nombre','asc')->pluck('nombre','id');
-      $user = Auth::user();
-      return view('centro.createCanje',['usuario'=>$user],compact('materiales'));
+      return view('centro.createCanje',['materiales'=>$materiales,'centros'=>$centros]);
+
     }
+
+    public function GuardarMiCanje(){
+      $Enc = new \App\Enccanje;
+      foreach (Session::get('miCanje') as $Can) {
+        $Enc->usuario_id = $Can->usuario_id;
+        $Enc->centro_id = $Can->centro_id;
+        $Enc->fecha = $Can->fecha;
+        $Enc->consecutivo = $Can->consecutivo;
+      }
+      foreach (Session::get('miDet') as $dt) {
+        $Enc->total += $dt->subTotal;
+      }
+      $Enc->save();
+
+      foreach (Session::get('miDet') as $dt) {
+        $det = new \App\Detcanje;
+        $det->enccanje_id = $Enc->consecutivo;
+        $det->material_id = $dt->material_id;
+        $det->cantidad = $dt->cantidad;
+        $det->subTotal = $dt->subTotal;
+        $det->save();
+      }
+
+      $billetera = Billeteravirtual::where('usuario',$Enc->usuario_id)->first();
+      $billetera->cantEcoDisponibles += $Enc->total;
+      $billetera->cantEcoPorTiquetes += 0;
+      $billetera->cantEcoTotal += $Enc->total;
+      $billetera->save();
+
+      Session::forget('miCanje');
+      Session::forget('miDet');
+
+      $canjes=Enccanje::orderBy('created_at','desc');
+      $canjes=$canjes->paginate(5);
+      return redirect()
+      ->route('centro.registroCanjes',['canjes'=>$canjes])
+      ->with('info', 'creado');
+      // return view('centro.registoCanjes',['canjes'=>$canjes])->with('info','Completado');;
+
+    }
+
+    //--------------------------------------------------------------
 
     public function getCentroCreate(){
       // $admins=\App\User::where('tipousuario_id',2)->orderby('name')->pluck('name','id');
@@ -89,18 +177,7 @@ class CentroController extends Controller
       ->where('tipo_user.tipoUsuario_id',2)->orderby('name')->pluck('name','id');
       return view('centro.create',compact('admins'));
     }
-    public function canjeCreate(Request $request)
-    {
 
-        //$user=User::where('id',2);
-        //$ct->user()->associate($user);
-        /*$Videojuego->addVideojuego($session,
-        $request->input('nombre'),
-        $request->input('descripcion'),
-        $request->input('fechaEstrenoInicial'));*/
-        return redirect()
-        ->route('centro.registroCanjes');
-    }
 
     public function ctCentroCreate(Request $request)
     {

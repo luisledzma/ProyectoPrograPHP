@@ -85,59 +85,51 @@
   <div class="container">
     <div class="section">
           <div class="row">
-
+            @foreach ($centros as $ce)
             <div class="col s12 m4">
               <div class="icon-block">
                 <h2 class="center brown-text"><i class="material-icons">home</i></h2>
-                <h5 class="center">Centro de Acopio</h5>
-                <p class="light">Provincia:</p>
-                <p class="light">Dirección:</p>
+                <h5 class="center">{{ $ce->nombre }}</h5>
+                <p class="light">{{ $ce->provincia }}</p>
+                <p class="light">{{ $ce->direccionExacta }}</p>
               </div>
             </div>
-            <div class="col s12 m4">
-              <div class="icon-block">
-                <h2 class="center brown-text"><i class="material-icons">home</i></h2>
-                <h5 class="center">Centro de Acopio</h5>
-                <p class="light">Provincia:</p>
-                <p class="light">Dirección:</p>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="icon-block">
-                <h2 class="center brown-text"><i class="material-icons">home</i></h2>
-                <h5 class="center">Centro de Acopio</h5>
-                <p class="light">Provincia:</p>
-                <p class="light">Dirección:</p>
-              </div>
-            </div>
+            @endforeach
 
         </div>
       </div>
   </div>
 
 
-    <div class="parallax-container valign-wrapper">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center">
-          <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
-        </div>
+  <div class="parallax-container valign-wrapper">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <div class="row center">
+        <h5 class="header col s12 light">Materiales que reciclamos</h5>
       </div>
     </div>
-    <div class="parallax"><img class="responsive-img" src="{{ URL::to('img/f7.jpg') }}" /></div>
   </div>
+  <div class="parallax"><img class="responsive-img" src="{{ URL::to('img/f7.jpg') }}" /></div>
+</div>
 
   <div class="container">
     <div class="section">
-
         <div class="row">
-          <div class="col s12 center">
-            <h3><i class="mdi-content-send brown-text"></i></h3>
-            <h4>Contact Us</h4>
-            <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-          </div>
+            @foreach($materiales as $mat)
+            <div class="col s12 m8 l4 xl4">
+              <div class="card">
+                <div class="card-image">
+                  <img src="{{asset('storage/'.$mat->imagen)}}">
+                  <span style="color:{{$mat->color}}" class="card-title">{{$mat->nombre}}</span>
+                  <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> -->
+                </div>
+                <div class="card-content">
+                  <p>Precio: {{$mat->precio}} </p>
+                </div>
+              </div>
+            </div>
+            @endforeach
         </div>
-
       </div>
   </div>
 
@@ -150,6 +142,10 @@
         $(document).ready(function(){
           $('.parallax').parallax();
         });
+        $(document).ready(function(){
+          $('.carousel').carousel();
+        });
+
         </script>
 
 @endsection

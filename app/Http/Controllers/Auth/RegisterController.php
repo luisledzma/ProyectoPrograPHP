@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Billeteravirtual;
 
 class RegisterController extends Controller
 {
@@ -74,6 +75,13 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
         ]);
         $user->tipoUsuario()->attach(3);
+        $us = User::where('email',$data['email'])->first();
+        $billetera = new Billeteravirtual;
+        $billetera->usuario = $us->id;
+        $billetera->cantEcoDisponibles = 0;
+        $billetera->cantEcoPorTiquetes = 0;
+        $billetera->cantEcoTotal = 0 ;
+        $billetera->save();
         return $user;
     }
 }

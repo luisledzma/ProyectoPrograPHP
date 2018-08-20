@@ -27,5 +27,18 @@ class AuthServiceProvider extends ServiceProvider
       Gate::define('create-ct',function($user){//el parámetro user va a retornar los datos del usuario que esta autentificado.
         return $user->tieneAcceso(['create-ct']);
       });
+      Gate::define('bill-virt',function($user){//el parámetro user va a retornar los datos del usuario que esta autentificado.
+        return $user->tieneAcceso(['bill-virt']);
+      });
+      Gate::define('mant-admin',function($user){//el parámetro user va a retornar los datos del usuario que esta autentificado.
+        return $user->tieneAcceso(['mant-admin']);
+      });
+      Gate::define('admin-canjes',function($user){//el parámetro user va a retornar los datos del usuario que esta autentificado.
+        return $user->tieneAcceso(['admin-canjes']);
+      });
+      Gate::define('cliente-cupones',function($user){//el parámetro user va a retornar los datos del usuario que esta autentificado.
+        return $user->tieneAcceso(['cliente-cupones']);
+      });
+      //
     }
 }

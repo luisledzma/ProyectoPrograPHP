@@ -34,7 +34,7 @@ class User extends Authenticatable
       return $this->hasMany('App\Enccanje');
     }
 
-
+    
 
     public function centros() {
       return $this->hasMany('App\Centro');

@@ -17,7 +17,8 @@ class CreateEnccanjesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->date('fecha');
-            $table->decimal('total');
+            $table->integer('total');
+            $table->integer('consecutivo')->unsigned();
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('centro_id')->unsigned();
