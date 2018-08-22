@@ -8,6 +8,7 @@ use App\Cupon;
 use Carbon\Carbon;
 use Auth;
 use Gate;
+use PDF;
 use App\Centro;
 use App\User;
 use App\Enccanje;
@@ -64,8 +65,9 @@ class CuponController extends Controller
         $billetera->cantEcoPorTiquetes += $cupon->cantEcoNecesarias;
         $billetera->cantEcoTotal += 0;
         $billetera->save();
-        $pathtoFile = public_path().'/'.'storage/'.$cupon->imagen;
-        return Storage::download($pathtoFile);
+
+        $pdf=PDF::loadView('cupon.reportePDF',compact('cupon'));
+        return $pdf->download('reportePDF-'.time().'.pdf');
       }
       else{
         return redirect()
@@ -74,6 +76,7 @@ class CuponController extends Controller
       }
 
   }
+
 
   public function cuponCreate(Request $request)
     {
@@ -95,7 +98,7 @@ class CuponController extends Controller
         ]);
         $cupon->save();
         return redirect()
-        ->route('cupon.index')
+        ->route('cupon.indexC')
         ->with('info', 'Guardado');
     }
 
@@ -133,7 +136,7 @@ class CuponController extends Controller
         $cupon->save();
 
         return redirect()
-        ->route('cupon.index')
+        ->route('cupon.indexC')
         ->with('info', 'Editado');
     }
 

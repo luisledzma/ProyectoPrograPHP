@@ -23,7 +23,11 @@
               <a href="{{ route('centro.canje')}}" class="waves-effect waves-light btn">Nuevo</a>
           </div>
       </div>
-
+      <div class="row">
+          <div class="col s12 m12 l12 xl12">
+              <a href="{{ route('centro.grafico')}}" class="waves-effect waves-light btn">Eco monedas por centro</a>
+          </div>
+      </div>
 
 
     <div class="col s12 m12 l12 xl12 " style="box-shadow: 3px 5px 8px #888888;">

@@ -37,7 +37,8 @@
               <li><a class="light-blue-text text-lighten-1" href="{{ route('material.index')}}">Materiales</a></li>
               <li class="divider" tabindex="-1"></li>
               <li><a class="light-blue-text text-lighten-1" href="{{ route('usuario.index')}}">Usuarios</a></li>
-              <li><a class="light-blue-text text-lighten-1" href="{{ route('cupon.index')}}">Cupones</a></li>
+              <li><a class="light-blue-text text-lighten-1" href="{{route('cupon.indexC')}}">Cupones</a></li>
+
             </ul>
           </li>
           @endcan
@@ -143,7 +144,7 @@
            <div class="col l4 offset-l2 s12">
              <h5 class="white-text">Desarrollado por:</h5>
              <ul>
-               <li><a class="grey-text text-lighten-3" href="#!">Jozsef Jimenez</a></li>
+               <li><a class="grey-text text-lighten-3" href="#!">Jozsef Jiménez Méndez</a></li>
                <li><a class="grey-text text-lighten-3" href="#!">Luis Antonio Ledezma Cordero</a></li>
              </ul>
            </div>

@@ -14,6 +14,7 @@ use App\Billeteravirtual;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Charts\Graficos;
 use Session;
 
 class CentroController extends Controller
@@ -41,6 +42,33 @@ class CentroController extends Controller
       $admins = DB::table('users')->join('tipo_user', 'users.id', '=', 'tipo_user.user_id')
       ->where('tipo_user.tipoUsuario_id',2)->orderby('name')->pluck('name','id');
       return view('centro.edit',['centro'=>$centro,'admins'=>$admins]);
+    }
+
+    public function grafico()
+    {
+      $chart = new Graficos();
+
+      $titulo="Promedio del total de eco monedas por centro de acopio";
+      $ecos = Enccanje::select(DB::raw("avg(total) as Promedio") ,
+    DB::raw("centro_id"))
+    ->orderBy('id')
+    ->groupby(DB::raw("centro_id"))
+    ->with('centro')
+    ->get();
+    $etiquetas=[];
+    foreach($ecos as $eco){
+      $etiquetas[]=$eco->centro->nombre;
+    }
+$cantidades=$ecos->pluck('Promedio');
+
+      //labels
+      $chart->labels($etiquetas);
+
+    $dataset=$chart->dataset($titulo, 'pie',$cantidades);
+    $dataset->backgroundColor(['#a9cce3', ' #a9dfbf', '#fad7a0','#c39bd3','#f9e79f','#a3e4d7', '#fadbd8', '#e59866']);
+    $dataset->color(['#2980b9', '#52be80', '#f0b27a','#7d3c98', '#f4d03f','#48c9b0','#f1948a','#d35400']);
+
+    return view('centro.grafico', ['chart' => $chart]);
     }
 
     //CANJES----------------------------------------

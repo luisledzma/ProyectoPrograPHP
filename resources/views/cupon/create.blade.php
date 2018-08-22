@@ -55,7 +55,7 @@
             @csrf
             <div class="input-field col s12 m12 l12 xl12">
                 <button type="submit" class="btn waves-effect waves-light">Guardar</button>
-                <a href="{{ route('cupon.index')}}" class="btn waves-effect waves-light">Regresar</a>
+                <a href="{{ route('cupon.indexC')}}" class="btn waves-effect waves-light">Regresar</a>
             </div>
 
           </form>

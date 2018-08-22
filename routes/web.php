@@ -111,6 +111,11 @@ Route::group(['prefix'=>'centro','middleware'=>'auth'], function(){
     ]
   );
 
+  Route::get('grafico', [
+      'uses' => 'CentroController@grafico',
+      'as' => 'centro.grafico'
+  ]);
+
 });
 
 Route::group(['prefix'=>'usuario','middleware'=>'auth'], function(){
@@ -216,6 +221,12 @@ Route::group(['prefix'=>'cupones','middleware'=>'auth'], function(){
   Route::get('', [
       'uses'=>'CuponController@getCuponIndex',
       'as'=>'cupon.index',
+      'middleware'=>'can:mant-admin'
+    ]
+  );
+  Route::get('indice', [
+      'uses'=>'CuponController@getCuponIndex',
+      'as'=>'cupon.indexC',
       'middleware'=>'can:mant-admin'
     ]
   );
